@@ -2,6 +2,7 @@
 
 CS 176 Computer Vision - Mini Project 1
 Puzzle game
+
 Team Members:
 - Joaquin Heffron
 - Antonio Torres
