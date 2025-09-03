@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Mini Project 1: Puzzle Game{% endblock %}
+
+{% block content %}
+<div class="row">
+    
+    <!-- Puzzle Board -->
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="text-center">Puzzle Board</h5>
+                <div id="puzzle-board">
+                    <!-- Puzzle grid -->
+                    <p class="text-center text-muted">Loading puzzle...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Puzzle Pieces -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body">
+                <h5>Pieces</h5>
+                <div id="pieces-container">
+                    <!-- Pieces -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load game JavaScript -->
+<script src="{{ url_for('static', filename='js/game.js') }}"></script>
+{% endblock %}
