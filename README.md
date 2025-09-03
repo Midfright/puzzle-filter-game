@@ -2,7 +2,10 @@
 
 CS 176 Computer Vision - Mini Project 1
 Puzzle game
-
+Team Members:
+- Joaquin Heffron
+- Antonio Torres
+- John Muji
 
 ## Files
 - static/js/game.js for game mechanics (drag-drop, etc..)
