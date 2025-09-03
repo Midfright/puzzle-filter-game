@@ -21,11 +21,8 @@ Team Members:
 
 ## Setup Instructions
 1. Clone this github
-2. Install dependencies:
-```bash
-pip install flask opencv-python pillow numpy requests
-```
-3. Virtual Environment (Use when working)
+
+2. Virtual Environment (Use when working)
 ```bash
 # Windows
 python -m venv venv
@@ -35,7 +32,7 @@ venv\Scripts\activate
 python3 -m venv venv
 source venv/bin/activate
 ```
-4. Install dependencies
+3. Install dependencies
 ```bash
 pip install -r requirements.txt
 
