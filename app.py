@@ -1,3 +1,7 @@
+'''
+app.py
+'''
+
 from flask import Flask, render_template, jsonify, request
 import os
 
@@ -15,20 +19,19 @@ def game():
     # Main game page
     return render_template('game.html')
 
-@app.route('/api/new-game', methods=['POST'])
-def new_game():
-    #TODO: create game session, fetch image, return game id
-    return jsonify({'status': 'success', 'game_id': '12345'})
+# Ideally, these use the functions from utils
+# placeholder return calls
 
-@app.route('/api/get-pieces', methods=['GET'])
-def get_pieces():
-    #TODO: slice image into pieces, apply filter(s)
-    return jsonify({'pieces': []})
+@app.route('/api/get-puzzle/<int:stage>')
+def get_puzzle(stage):
+    # handle all puzzle requests
+    # return complete puzzle data for stage
+    return jsonify({'stage': 1, 'grid_size':3, 'pieces':[...], 'correct_order':[...]})
 
-@app.route('/api/check-solution', methods=['POST'])
-def check_solution():
-    #TODO: check piece positions, calculate score(if we want scores), return result
-    return jsonify({'correct': False})
+@app.route('/api/validate-solution', methods=['POST']) 
+def validate_solution():
+     # validates solution
+    pass
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

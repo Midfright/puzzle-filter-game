@@ -1,3 +1,7 @@
+'''
+image_processor.py
+'''
+
 import cv2
 import numpy as np
 from PIL import Image, ImageTk
@@ -60,20 +64,33 @@ root.mainloop()
 
 '''
 
-def fetch_random_image():
+def fetch_image(stage_num):
     # image fetching logic
     # i think this should be from local storage (static/images/)
+    # returns PIL image object
     pass
 
-def slice_image():
+def slice_image(image, stage_num):
     # need to calculate piece dimensions, slice image into grid, and return list of pieces
+    # returns list of dictionaries (with information of piece id, iamge data, filter)
     pass
 
 def apply_filter(image, filter_name):
     # filters using OpenCV
     # we should have at least 5 filters as per the instructions (grayscale, blur, etc..)
+    # returns image?
+    pass
+
+def get_filter_list():
+    # helper function if you need (could remove)
+    # returns list of available filter names
     pass
 
 def shuffle_pieces(pieces):
     # for randomizing/shuffling pieces
+    pass
+
+def piece_to_base64(piece_array):
+    # numpy array to base64 string 
+    # for passing images from python to js
     pass

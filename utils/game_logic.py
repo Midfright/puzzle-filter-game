@@ -1,15 +1,25 @@
-def create_game_session():
-    # new unique game ID, initialize game state
+'''
+game_logic.py
+'''
+
+def get_grid_size(stage_num):
+    # returns integer
+    # really only need this if we want different grid size/puzzle slice number
     pass
 
-def validate_move(piece_id, position):
-    # was thinking piece_id for identify pieces, and position based on board(enumerated?)
+def generate_puzzle_for_stage(stage_num):
+    # use image_processor functions like fetch, slide, apply filters
+    # return dictionary with puzzle data like stage, grid size, pieces, original order
     pass
 
-def check_win_condition(board_state):
-    # compare with solution (OG image)
+def validate_solution(cur_pos, orig_pos):
+    # get two lists of piece positions and compare
+    # return boolean to confirm validity
     pass
 
-def calculate_score():
-    # for scores if we want
+def get_stage_config(stage_num):
+    # Returns: {'grid_size': 3, 'filter_intensity': 'low', 'filters_to_use': [...]}
+    # Stage 1: 3x3, light filters
+    # Stage 2: 4x4, medium filters
+    # Stage 3+: 5x5, heavy filters
     pass
