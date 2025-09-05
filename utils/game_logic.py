@@ -7,7 +7,7 @@ def get_grid_size(stage_num):
     # really only need this if we want different grid size/puzzle slice number
     pass
 
-def generate_puzzle_for_stage(stage_num):
+def generate_puzzle(stage_num):
     # use image_processor functions like fetch, slide, apply filters
     # return dictionary with puzzle data like stage, grid size, pieces, original order
     pass
