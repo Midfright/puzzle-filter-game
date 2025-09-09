@@ -42,7 +42,7 @@ pip install flask opencv-python pillow numpy requests
 
 
 ## Testing
-1. Simply run app.py from the main directory
+1. Simply run app.py from the main directory or execute run.bat
 ```bash
 python app.py
 ```
