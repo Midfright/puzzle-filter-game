@@ -4,6 +4,7 @@ app.py
 
 from flask import Flask, render_template, jsonify, request
 import os
+import utils.game_logic as gl
 
 app = Flask(__name__)
 app.secret_key = 'dev-key-change-in-production'
@@ -24,14 +25,36 @@ def game():
 
 @app.route('/api/get-puzzle/<int:stage>')
 def get_puzzle(stage):
+
     # handle all puzzle requests
     # return complete puzzle data for stage
-    return jsonify({'stage': 1, 'grid_size':3, 'pieces':[...], 'correct_order':[...]})
+
+    if not stage or not isinstance(stage, int):
+        return jsonify({'error': 'Stage number is not an integer'}), 400
+    if stage < 1:
+        return jsonify({'error': 'Stage number is too low'}), 400
+    if stage > 5:
+        return jsonify({'error': 'Stage number is too high'}), 400
+
+    return jsonify(gl.generate_puzzle(stage))
 
 @app.route('/api/validate-solution', methods=['POST']) 
 def validate_solution():
-     # validates solution
-    pass
+    solution_data = request.get_json(force=True)
+    try:
+        correct = gl.validate_solution(solution_data['cur_pos'], solution_data['orig_pos'])
+
+        # next stage is just the stage number + 1
+        next_stage = int(solution_data['stage_num']) + 1
+
+        # next stage is max 5
+        if next_stage > 5:
+            next_stage = 5
+
+        return jsonify({'correct': correct, 'next_stage': next_stage})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
+    
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
