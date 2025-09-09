@@ -12,7 +12,7 @@ def generate_puzzle(stage_num):
     # return dictionary with puzzle data like stage, grid size, pieces, original order
 
     filter_list = ip.get_filter_list()
-    filter_to_apply = filter_list[stage_num % len(filter_list)]
+    filter_to_apply = filter_list[(stage_num - 1) % len(filter_list)]
 
     image = ip.fetch_image(stage_num)
     pieces = ip.slice_image(image, stage_num)
@@ -25,7 +25,7 @@ def generate_puzzle(stage_num):
     shuffled_pieces = ip.piece_to_base64(shuffled_pieces)
 
     return {
-        'stage': stage_num,
+        'stage_num': stage_num,
         'grid_size': get_grid_size(stage_num),
         'shuffled_pieces': shuffled_pieces,
         'correct_order': [piece['id'] for piece in pieces],
@@ -38,7 +38,7 @@ def validate_solution(cur_pos, orig_pos):
 
     if not isinstance(cur_pos, list) or not isinstance(orig_pos, list):
         raise ValueError("cur_pos and orig_pos must be lists")
-    if all(isinstance(pos, int) for pos in cur_pos) and all(isinstance(pos, int) for pos in orig_pos):
+    if not all(isinstance(pos, int) for pos in cur_pos) or not all(isinstance(pos, int) for pos in orig_pos):
         raise ValueError("cur_pos and orig_pos must be lists of integers")
 
     return cur_pos == orig_pos

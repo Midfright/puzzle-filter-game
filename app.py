@@ -45,11 +45,13 @@ def validate_solution():
         correct = gl.validate_solution(solution_data['cur_pos'], solution_data['orig_pos'])
 
         # next stage is just the stage number + 1
-        next_stage = int(solution_data['stage_num']) + 1
-
-        # next stage is max 5
-        if next_stage > 5:
-            next_stage = 5
+        if correct:
+            next_stage = int(solution_data['stage_num']) + 1
+            # cap at 6
+            if next_stage > 6:
+                next_stage = 6
+        else:
+            next_stage = int(solution_data['stage_num'])
 
         return jsonify({'correct': correct, 'next_stage': next_stage})
     except Exception as e:

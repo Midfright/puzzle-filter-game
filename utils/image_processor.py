@@ -79,6 +79,15 @@ def fetch_image(stage_num):
     
     # open and return the image
     image = Image.open(image_path)
+    
+    # width, height = image.size
+    # min_dim = min(width, height)
+    # left = (width - min_dim) // 2
+    # top = (height - min_dim) // 2
+    # right = left + min_dim
+    # bottom = top + min_dim
+    
+    # image = image.crop((left, top, right, bottom))
 
     #print(image)
     return image
@@ -141,7 +150,7 @@ def apply_filter(image, filter_name):
         filtered_img = Image.fromarray(thresh)
 
     elif filter_name == 'invert':
-        filtered = cv2.rotate(cv_img, cv2.ROTATE_90_CLOCKWISE)
+        filtered = cv2.bitwise_not(cv_img)
         filtered_img = Image.fromarray(cv2.cvtColor(filtered, cv2.COLOR_BGR2RGB))
 
     else:
@@ -176,7 +185,7 @@ def piece_to_base64(pieces_list):
         img_bytes = buffered.getvalue()
         img_base64 = base64.b64encode(img_bytes).decode('utf-8')
         b64_piece = piece.copy()
-        b64_piece['image_data'] = img_base64
+        b64_piece['image_data'] = f"data:image/png;base64,{img_base64}"
         base64_pieces.append(b64_piece)
     
     #print(base64_pieces)
