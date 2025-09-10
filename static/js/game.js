@@ -443,6 +443,7 @@ function showMessage(title, text, callback, extraButton, origImage) {
         const originalImage = document.createElement('img');
         originalImage.src = origImage;
         originalImage.alt = "Original Image";
+        originalImage.className = "img-fluid";
         origContainer.appendChild(originalImage);
         console.log("origImage src:", origImage);
     }

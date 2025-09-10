@@ -33,7 +33,7 @@ def generate_puzzle(stage_num, crazy=False):
         'grid_size': get_grid_size(stage_num),
         'shuffled_pieces': shuffled_pieces,
         'correct_order': [piece['id'] for piece in pieces],
-        'orig_image': ip.piece_to_base64(image_list)[0],
+        'orig_image': ip.piece_to_base64(image_list)[0]['image_data'],
     }
 
 def validate_solution(cur_pos, orig_pos):
