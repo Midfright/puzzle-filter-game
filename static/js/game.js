@@ -75,7 +75,8 @@ let gameState = {
     shuffledPieces: [],
     correctOrder: [],
     boardState: [],
-    crazyMode: false
+    crazyMode: false,
+    origImage: null
 }
 
 // =============================================================================
@@ -109,6 +110,7 @@ async function loadStage(stageNumber, crazy=false){
         gameState.shuffledPieces = puzzleData.shuffled_pieces;
         gameState.correctOrder = puzzleData.correct_order;
         gameState.crazyMode = crazy;
+        gameState.origImage = puzzleData.orig_image;
         
         displayPuzzle(puzzleData);
         
@@ -172,7 +174,7 @@ async function validateSolution() {
             if (result.next_stage <= 5) {
                 showMessage('Stage Complete', 'Keep going!', () => {
                     loadStage(result.next_stage, gameState.crazyMode);
-                });
+                }, null, gameState.origImage);
             } else {
                 showGameComplete();
             }
@@ -391,7 +393,7 @@ function getCurrentPositions() {
 }
 
 
-function showMessage(title, text, callback, extraButton) {
+function showMessage(title, text, callback, extraButton, origImage) {
     // modal with buttons
     const modal = document.getElementById('message-modal');
     document.getElementById('message-title').textContent = title;
@@ -400,6 +402,8 @@ function showMessage(title, text, callback, extraButton) {
     // clear and setup buttons
     const buttonContainer = document.getElementById('modal-buttons');
     buttonContainer.innerHTML = '';
+
+    const origContainer = document.getElementById('orig-image-div');
     
     // adds additional buttons if extraButton
     if (extraButton) {
@@ -433,6 +437,16 @@ function showMessage(title, text, callback, extraButton) {
         };
         buttonContainer.appendChild(continueBtn);
     }
+
+    origContainer.innerHTML = "";
+    if (origImage) {
+        const originalImage = document.createElement('img');
+        originalImage.src = origImage;
+        originalImage.alt = "Original Image";
+        origContainer.appendChild(originalImage);
+        console.log("origImage src:", origImage);
+    }
+
     
     // show modal
     let bsModal = bootstrap.Modal.getInstance(modal);

@@ -26,12 +26,14 @@ def generate_puzzle(stage_num, crazy=False):
     
     shuffled_pieces = ip.shuffle_pieces(pieces)
     shuffled_pieces = ip.piece_to_base64(shuffled_pieces)
+    image_list = [{'image_data': image}]
 
     return {
         'stage_num': stage_num,
         'grid_size': get_grid_size(stage_num),
         'shuffled_pieces': shuffled_pieces,
         'correct_order': [piece['id'] for piece in pieces],
+        'orig_image': ip.piece_to_base64(image_list)[0],
     }
 
 def validate_solution(cur_pos, orig_pos):
