@@ -1,64 +1,50 @@
 {% extends "base.html" %}
 
-{% block title %}Mini Project 1: Puzzle Game{% endblock %}
+{% block title %}FilterMash - Puzzle Game{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div id="game-header" class="row mb-3">
-        <div class="col-md-4">
-            <h5>Stage: <span id="current-stage">1</span> / <span id="max-stages">5</span></h5>
+<div class="game-container">
+    <div class="game-header">
+        <div class="section-title">
+            Stage <span id="current-stage">1</span> of <span id="max-stages">5</span>
         </div>
-        <div class="col-md-4 text-center">
-            <button id="validate-btn" class="btn btn-success">Check Solution</button>
-        </div>
-        <div class="col-md-4 text-end">
-            <button id="reset-stage-btn" class="btn btn-warning">Reset Stage</button>
-        </div>
-    </div>
-
-    <!-- Puzzle Board -->
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="text-center">Puzzle Board</h5>
-                <div id="puzzle-board" class="puzzle-grid">
-                </div>
-            </div>
+        <div class="game-controls">
+            <button id="reset-stage-btn" class="btn btn-secondary">
+                Reset
+            </button>
+            <button id="validate-btn" class="btn btn-primary">
+                Check Solution
+            </button>
         </div>
     </div>
 
-    <!-- Puzzle Pieces -->
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body">
-                <h5>Pieces</h5>
-                <div id="pieces-container" class="pieces-pile">
-                </div>
-            </div>
+    <div class="game-layout">
+        <div class="puzzle-section">
+            <h2 class="section-title">Puzzle Board</h2>
+            <div id="puzzle-board" class="puzzle-grid"></div>
         </div>
-    </div>
 
-    <div id="message-modal" class="modal fade">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body text-center">
-                    <h4 id="message-title">Stage Complete!</h4>
-                    <p id="message-text">Ready for the next challenge?</p>
-                    <div id="modal-buttons">
-                        <button id="continue-btn" class="btn btn-primary" data-bs-dismiss="modal">Continue</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="loading-overlay" class="d-none">
-        <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+        <div class="pieces-section">
+            <h2 class="section-title">Pieces</h2>
+            <div id="pieces-container" class="pieces-pile"></div>
         </div>
     </div>
 </div>
-{% endblock %} 
+
+<div id="message-modal" class="modal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <h4 id="message-title">Stage Complete</h4>
+                <p id="message-text">Next</p>
+                <div id="modal-buttons">
+                    <button class="btn btn-primary">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
 {% block scripts %}
 <script src="{{ url_for('static', filename='js/game.js') }}"></script>

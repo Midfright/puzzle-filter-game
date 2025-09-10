@@ -1,14 +1,148 @@
+
+:root {
+    --cream: #FAF9F6;
+    --light-cream: #FEFDFB;
+    --dark-gray: #121213;
+    --medium-gray: #878787;
+    --light-gray: #D3D3D3;
+    --orange: #F5793A;
+    --orange-hover: #E56A2C;
+    --success: #6AAA64;
+    --border-color: #D3D6DA;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #f5f5f5;
+    background-color: var(--cream);
+    color: var(--dark-gray);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.navbar {
+    background: var(--light-cream);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem 0;
+}
+
+.nav-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.nav-icons {
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-icon {
+    color: var(--dark-gray);
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-icon:hover {
+    color: var(--orange);
+}
+
+.game-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.game-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.game-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.btn {
+    background: var(--light-cream);
+    color: var(--dark-gray);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+}
+
+.btn:hover {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+}
+
+.btn-primary {
+    background: var(--orange);
+    color: white;
+    border-color: var(--orange);
+}
+
+.btn-primary:hover {
+    background: var(--orange-hover);
+    border-color: var(--orange-hover);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--dark-gray);
+}
+
+.btn-secondary:hover {
+    background: var(--light-gray);
+    color: var(--dark-gray);
+}
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.puzzle-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.section-title {
+    font-size: 1.20rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--dark-gray);
+    margin-bottom: 1rem;
 }
 
 #puzzle-board {
-    min-height: 400px;
-    background: #e0e0e0;
+    background: var(--light-cream);
+    border: 1px solid var(--border-color);
     border-radius: 8px;
-    padding: 10px;
-    user-select: none;
-    -webkit-user-drag: none;
+    padding: 1rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
 .puzzle-grid {
@@ -16,54 +150,76 @@ body {
     grid-template-columns: repeat(var(--grid-size), 1fr);
     gap: 0;
     aspect-ratio: 1;
-    max-width: 500px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .grid-slot {
     aspect-ratio: 1;
+    background: var(--cream);
+    border: 0.5px solid var(--border-color);
+    border-radius: 4px;
     position: relative;
-    box-sizing: border-box;
-    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    transition: all 0.2s;
 }
 
 .grid-slot.drag-over {
-    background-color: rgba(0, 123, 255, 0.15);
-    border: 2px solid #007bff;
+    background: var(--orange);
+    background: rgba(245, 121, 58, 0.1);
+    border-color: var(--orange);
+}
+
+.pieces-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #pieces-container {
+    background: var(--light-cream);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
     min-height: 300px;
-    max-height: 600px;  
-    overflow-y: auto;   
-    background: #f8f8f8;
-    padding: 10px;
-    display: grid;  
-    grid-template-columns: repeat(auto-fill, 85px);  
-    gap: 10px;
+    max-height: 400px;
+    overflow-y: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 70px);
+    gap: 8px;
     justify-content: center;
-    align-content: start;
-    user-select: none;
-    -webkit-user-drag: none;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+#pieces-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+#pieces-container::-webkit-scrollbar-track {
+    background: var(--cream);
+    border-radius: 3px;
+}
+
+#pieces-container::-webkit-scrollbar-thumb {
+    background: var(--light-gray);
+    border-radius: 3px;
+}
+
+#pieces-container::-webkit-scrollbar-thumb:hover {
+    background: var(--medium-gray);
 }
 
 .puzzle-piece {
-    cursor: move;
-    border: 2px solid #fff;
-    transition: transform 0.2s;
-    user-select: none;
-}
-
-#pieces-container .puzzle-piece {
-    width: 80px;
-    height: 80px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    width: 70px;
+    height: 70px;
+    background: white;
+    border: 2px solid var(--border-color);
     border-radius: 4px;
+    cursor: move;
     overflow: hidden;
-}
-
-.puzzle-piece.dragging {
-    opacity: 0.5;
-    cursor: grabbing;
+    transition: all 0.2s;
+    user-select: none;
 }
 
 .puzzle-piece.in-grid {
@@ -72,12 +228,56 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 0;
     border: none;
+    border-radius: 2px;
 }
 
 .puzzle-piece img {
     pointer-events: none;
     -webkit-user-drag: none;
     user-select: none;
+}
+
+.modal-content {
+    background: var(--light-cream);
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+#message-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dark-gray);
+    margin-bottom: 0.5rem;
+}
+
+#message-text {
+    color: var(--medium-gray);
+    margin-bottom: 1.5rem;
+}
+
+#modal-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.spinner-border {
+    color: var(--orange);
+}
+
+.test-controls {
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    background: var(--light-cream);
+    padding: 0.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }

@@ -3,27 +3,15 @@
 {% block title %}FilterMash{% endblock %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body text-center">
-                <h1>Puzzle Game</h1>
-                
-                <!-- Start Button -->
-                <button class="btn btn-primary btn-lg" onclick="startGame()">
-                    Start Game
-                </button>
-
-                <!-- maybe we add instructions -->
-            </div>
-        </div>
+<div class="game-container">
+    <div style="text-align: center; padding: 4rem 0;">
+        <h1 style="font-size: 3rem; font-weight: 300; margin-bottom: 1rem;">FilterMash</h1>
+        <p style="color: var(--medium-gray); margin-bottom: 2rem;">
+            Solve image puzzles with filters
+        </p>
+        <button class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem;" onclick="window.location.href='/game'">
+            Play
+        </button>
     </div>
 </div>
-
-<script>
-function startGame() {
-    // go to game page
-    window.location.href = '/game';
-}
-</script>
 {% endblock %}
