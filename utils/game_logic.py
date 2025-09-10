@@ -15,12 +15,12 @@ def generate_puzzle(stage_num, crazy=False):
     filter_list = ip.get_filter_list()
     filter_to_apply = filter_list[(stage_num - 1) % len(filter_list)]
 
-    image = ip.fetch_image(stage_num)
+    image = ip.fetch_image(stage_num, randomize=crazy)
     pieces = ip.slice_image(image, stage_num)
 
     for piece in pieces:
         if crazy:
-            filter_to_apply = filter_list[random.randint(0,4) % len(filter_list)]
+            filter_to_apply = filter_list[random.randint(0, len(filter_list) - 1)]
         piece['image_data'] = ip.apply_filter(piece['image_data'], filter_to_apply)
         piece['filter'] = filter_to_apply
     

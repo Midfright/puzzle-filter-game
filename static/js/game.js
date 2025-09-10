@@ -8,7 +8,7 @@ game.js
 const API = {
     async getPuzzle(stage, crazy) {
         // fetch puzzle data from backend
-        const response = await fetch(`/api/get-puzzle/${stage}?crazy=${crazy}}`);
+        const response = await fetch(`/api/get-puzzle/${stage}?crazy=${crazy}`);
         if (!response.ok) {
             throw new Error('Failed to fetch puzzle');
         }
@@ -74,7 +74,8 @@ let gameState = {
     gridSize: 3,
     shuffledPieces: [],
     correctOrder: [],
-    boardState: []
+    boardState: [],
+    crazyMode: false
 }
 
 // =============================================================================
@@ -86,17 +87,18 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initGame() {
+    const urlParams = new URLSearchParams(window.location.search);
+    gameState.crazyMode = urlParams.get('crazy') === 'true';
     // button events hook
     document.getElementById('validate-btn').addEventListener('click', validateSolution);
     document.getElementById('reset-stage-btn').addEventListener('click', resetCurrentStage);
     addTestControls();
     // start with stage 1
-    loadStage(1);
+    loadStage(1, gameState.crazyMode);
 }
 
-async function loadStage(stageNumber, crazy=False){
+async function loadStage(stageNumber, crazy=false){
     try {
-        
         document.getElementById('puzzle-board').innerHTML = 
             '<div class="text-center p-5"><div class="spinner-border"></div><p>Loading puzzle...</p></div>';
         
@@ -106,6 +108,8 @@ async function loadStage(stageNumber, crazy=False){
         gameState.gridSize = puzzleData.grid_size;
         gameState.shuffledPieces = puzzleData.shuffled_pieces;
         gameState.correctOrder = puzzleData.correct_order;
+        gameState.crazyMode = crazy;
+        
         displayPuzzle(puzzleData);
         
     } catch (error) {
@@ -118,6 +122,12 @@ function displayPuzzle(puzzleData){
     document.getElementById('current-stage').textContent = puzzleData.stage_num || puzzleData.stage;
     clearBoard();
     
+    // indicate mode
+    const modeIndicator = document.getElementById('mode-indicator');
+    if (modeIndicator && gameState.crazyMode) {
+        modeIndicator.textContent = 'CRAZY MODE - ';
+    }
+
     const puzzleBoard = document.getElementById('puzzle-board');
     puzzleBoard.style.setProperty('--grid-size', puzzleData.grid_size);
     puzzleBoard.className = 'puzzle-grid';
@@ -161,7 +171,7 @@ async function validateSolution() {
         if (result.correct) {
             if (result.next_stage <= 5) {
                 showMessage('Stage Complete', 'Keep going!', () => {
-                    loadStage(result.next_stage);
+                    loadStage(result.next_stage, gameState.crazyMode);
                 });
             } else {
                 showGameComplete();
@@ -438,11 +448,11 @@ function showGameComplete() {
     
     showMessage(
         'Congratulations!', 
-        'You won the game!',
+        gameState.crazyMode ? 'You beat Crazy Mode!' : 'You won the game!',
         null,
         {
             text1: 'Play Again',
-            callback1: () => loadStage(1),
+            callback1: () => loadStage(1, gameState.crazyMode),
             text2: 'Back to Home',
             callback2: () => window.location.href = '/'
         }
