@@ -35,8 +35,10 @@ def get_puzzle(stage):
         return jsonify({'error': 'Stage number is too low'}), 400
     if stage > 5:
         return jsonify({'error': 'Stage number is too high'}), 400
+    
+    crazy = request.args.get('crazy', 'false').lower() == 'true'
 
-    return jsonify(gl.generate_puzzle(stage))
+    return jsonify(gl.generate_puzzle(stage, crazy))
 
 @app.route('/api/validate-solution', methods=['POST']) 
 def validate_solution():

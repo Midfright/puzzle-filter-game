@@ -3,11 +3,12 @@ game_logic.py
 '''
 
 import utils.image_processor as ip
+import random
 
 def get_grid_size(stage_num):
     return stage_num + 1
 
-def generate_puzzle(stage_num):
+def generate_puzzle(stage_num, crazy=False):
     # use image_processor functions like fetch, slide, apply filters
     # return dictionary with puzzle data like stage, grid size, pieces, original order
 
@@ -18,6 +19,8 @@ def generate_puzzle(stage_num):
     pieces = ip.slice_image(image, stage_num)
 
     for piece in pieces:
+        if crazy:
+            filter_to_apply = filter_list[random.randint(0,4) % len(filter_list)]
         piece['image_data'] = ip.apply_filter(piece['image_data'], filter_to_apply)
         piece['filter'] = filter_to_apply
     

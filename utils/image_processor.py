@@ -9,6 +9,7 @@ import os
 import random
 import base64
 import io
+import requests
 
 '''
 FROM THE tinker_app.py template, for reference or use if want
@@ -68,30 +69,26 @@ root.mainloop()
 
 '''
 
-def fetch_image(stage_num):
+def fetch_image(stage_num, randomize=False):
     # image fetching logic
-    # i think this should be from local storage (static/images/)
     # returns PIL image object
 
-    # make the filename, e.g., "stage_1.png"
-    filename = f"stage_{stage_num}.png"
-    image_path = os.path.join("static", "images", filename)
-    
-    # open and return the image
-    image = Image.open(image_path)
-    
-    # width, height = image.size
-    # min_dim = min(width, height)
-    # left = (width - min_dim) // 2
-    # top = (height - min_dim) // 2
-    # right = left + min_dim
-    # bottom = top + min_dim
-    
-    # image = image.crop((left, top, right, bottom))
+    if not randomize: # return default image
+        filename = f"stage_{stage_num}.png"
+        image_path = os.path.join("static", "images", filename)
+        image = Image.open(image_path)
+    else: # return random image fetched from picsum
+        width  = random.randint(3,7) * 100
+        height = random.randint(3,7) * 100
 
-    #print(image)
+        try:
+            response = requests.get(f"https://picsum.photos/{width}/{height}")
+            image = Image.open(io.BytesIO(response.content))
+        except requests.exceptions.RequestException as e:
+            print(f"Error fetching random image: {e}")
+            print(f"Reverting to default image for stage {stage_num}")
+            image = fetch_image(stage_num)
     return image
-    
 
 def slice_image(image, stage_num):
     # need to calculate piece dimensions, slice image into grid, and return list of pieces

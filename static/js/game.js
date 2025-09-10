@@ -6,9 +6,9 @@ game.js
 // API Object
 // =============================================================================
 const API = {
-    async getPuzzle(stage) {
+    async getPuzzle(stage, crazy) {
         // fetch puzzle data from backend
-        const response = await fetch(`/api/get-puzzle/${stage}`);
+        const response = await fetch(`/api/get-puzzle/${stage}?crazy=${crazy}}`);
         if (!response.ok) {
             throw new Error('Failed to fetch puzzle');
         }
@@ -94,13 +94,13 @@ function initGame() {
     loadStage(1);
 }
 
-async function loadStage(stageNumber){
+async function loadStage(stageNumber, crazy=False){
     try {
         
         document.getElementById('puzzle-board').innerHTML = 
             '<div class="text-center p-5"><div class="spinner-border"></div><p>Loading puzzle...</p></div>';
         
-        const puzzleData = await API.getPuzzle(stageNumber);
+        const puzzleData = await API.getPuzzle(stageNumber, crazy);
         
         gameState.currentStage = puzzleData.stage_num || puzzleData.stage;
         gameState.gridSize = puzzleData.grid_size;

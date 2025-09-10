@@ -4,13 +4,16 @@
 
 {% block content %}
 <div class="game-container">
-    <div style="text-align: center; padding: 4rem 0;">
+    <div style="text-align: center; padding: 4rem 0; flex-direction: column; display: flex; align-items: center">
         <h1 style="font-size: 3rem; font-weight: 300; margin-bottom: 1rem;">FilterMash</h1>
         <p style="color: var(--medium-gray); margin-bottom: 2rem;">
             Solve image puzzles with filters
         </p>
-        <button class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem;" onclick="window.location.href='/game'">
-            Play
+        <button class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem; width: 16rem" onclick="window.location.href='/game?crazy=false'">
+            Play Normal Mode
+        </button>
+        <button class="btn btn-primary" style="font-size: 1rem; padding: 1rem 2rem; margin-top: 1rem; width: 16rem" onclick="window.location.href='/game?crazy=true'">
+            Play Crazy Mode
         </button>
     </div>
 </div>
